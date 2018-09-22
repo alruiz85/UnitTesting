@@ -93,7 +93,7 @@ class SuperVillainTest {
         val minion = MinionDouble()
         superVillain.worldDominationPhaseTwo(minion = minion)
 
-        assertTrue(minion.verify())
+        minion.verify()
     }
 
     /**
@@ -154,8 +154,9 @@ class SuperVillainTest {
             fightEnemiesDone = true
         }
 
-        fun verify(): Boolean {
-            return hardStuffDone && fightEnemiesDone
+        fun verify() {
+            assertTrue(hardStuffDone)
+            assertTrue(fightEnemiesDone)
         }
 
     }
