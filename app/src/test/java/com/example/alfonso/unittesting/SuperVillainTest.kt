@@ -88,6 +88,14 @@ class SuperVillainTest {
         assertEquals("Madrid", sideKick.firstWeakTarget)
     }
 
+    @Test
+    fun testWorldDominationPhaseTwo() {
+        val minion = MinionDouble()
+        superVillain.worldDominationPhaseTwo(minion = minion)
+
+        assertTrue(minion.verify())
+    }
+
     /**
      * Fake SideKick class.
      */
@@ -109,6 +117,9 @@ class SuperVillainTest {
         }
     }
 
+    /**
+     * Fake gadget class.
+     */
     class GadgetDummy : Gadget {
         override fun use() {
 
@@ -125,6 +136,28 @@ class SuperVillainTest {
         override fun fire() {
             wasFired = true
         }
+    }
+
+    /**
+     * Fake Minion class.
+     */
+    class MinionDouble : Minion {
+
+        var hardStuffDone: Boolean = false
+        var fightEnemiesDone: Boolean = false
+
+        override fun doHardStuff() {
+            hardStuffDone = true
+        }
+
+        override fun fightEnemies() {
+            fightEnemiesDone = true
+        }
+
+        fun verify(): Boolean {
+            return hardStuffDone && fightEnemiesDone
+        }
+
     }
 
 }

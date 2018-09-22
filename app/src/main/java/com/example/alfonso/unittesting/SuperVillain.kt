@@ -2,7 +2,8 @@ package com.example.alfonso.unittesting
 
 data class SuperVillain(var firstName: String,
                         var lastName: String,
-                        var sideKick: SideKick? = null) {
+                        var sideKick: SideKick? = null,
+                        var minion: Minion? = null) {
 
     fun fire(weapon: MegaWeapon) {
         weapon.fire()
@@ -33,5 +34,9 @@ data class SuperVillain(var firstName: String,
         }
     }
 
+    fun worldDominationPhaseTwo(minion: Minion) {
+        minion.doHardStuff()
+        minion.fightEnemies()
+    }
 
 }
