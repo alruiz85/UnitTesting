@@ -117,8 +117,10 @@ class SuperVillainTest {
         superVillain.sideKick = sideKick
         superVillain.tellSecrets(cypher, TestData.MESSAGE)
 
-
-        verify(sideKick).listenSecrets(TestData.CYPHER_MESSAGE)
+        argumentCaptor<String>().apply {
+            verify(sideKick).listenSecrets(capture())
+            assertEquals(lastValue, TestData.CYPHER_MESSAGE)
+        }
 
     }
 
