@@ -10,7 +10,7 @@ import org.mockito.Mockito.times
 
 class SuperVillainTest {
 
-    lateinit var superVillain: SuperVillain
+    private lateinit var superVillain: SuperVillain
 
     @Before
     fun setUp() {
