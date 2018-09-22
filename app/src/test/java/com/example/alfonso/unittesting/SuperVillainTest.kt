@@ -158,6 +158,16 @@ class SuperVillainTest {
             assertTrue(hardStuffDone)
             assertTrue(fightEnemiesDone)
         }
+    }
+
+    /**
+     * Fake Cypher class.
+     */
+    class FakeCypher : Cypher {
+
+        override fun encrypt(message: String, key: String): String {
+            return "O2O$message"
+        }
 
     }
 

@@ -11,7 +11,11 @@ open class SideKick(var gadget: Gadget) {
     }
 
     open fun buildHeadQuarters(city: String) {
-        //Empty
+        //empty
+    }
+
+    open fun listenSecrets(message: String) {
+        //empty
     }
 
 }

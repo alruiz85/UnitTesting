@@ -39,4 +39,11 @@ data class SuperVillain(var firstName: String,
         minion.fightEnemies()
     }
 
+    fun tellSecrets(cypher: Cypher, message: String) {
+        sideKick?.apply {
+            val messageEncrypt = cypher.encrypt(message = "", key = "")
+            listenSecrets(messageEncrypt)
+        }
+    }
+
 }
