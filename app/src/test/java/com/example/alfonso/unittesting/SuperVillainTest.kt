@@ -191,12 +191,12 @@ class SuperVillainTest {
     /**
      * Fake Cypher class.
      */
-    class FakeCypher : Cypher {
+    /*class FakeCypher : Cypher {
 
         override fun encrypt(message: String, key: String): String {
             return "O2O$message"
         }
 
-    }
+    }*/
 
 }
