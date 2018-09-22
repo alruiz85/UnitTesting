@@ -41,7 +41,7 @@ data class SuperVillain(var firstName: String,
 
     fun tellSecrets(cypher: Cypher, message: String) {
         sideKick?.apply {
-            val messageEncrypt = cypher.encrypt(message = "", key = "")
+            val messageEncrypt = cypher.encrypt(message = message, key = "")
             listenSecrets(messageEncrypt)
         }
     }

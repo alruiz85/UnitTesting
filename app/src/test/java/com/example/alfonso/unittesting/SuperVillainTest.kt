@@ -1,14 +1,12 @@
 package com.example.alfonso.unittesting
 
-import com.nhaarman.mockitokotlin2.atLeastOnce
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
 
 class SuperVillainTest {
 
@@ -87,27 +85,47 @@ class SuperVillainTest {
 
     @Test
     fun testStartDominationWorldPlans() {
-        val sideKick = SideKickDouble()
-        sideKick.weakTargetList = arrayOf("Madrid", "Albacete", "Guadalajara")
+        val sideKick = mock(SideKick::class.java)
+        whenever(sideKick.askForWeakTargets()).thenReturn(arrayOf("Madrid", "Albacete", "Guadalajara"))
+
         superVillain.sideKick = sideKick
 
         superVillain.startDominationWorldPlans()
 
-        assertEquals("Madrid", sideKick.firstWeakTarget)
+        verify(sideKick).buildHeadQuarters(city = "Madrid")
     }
 
     @Test
     fun testWorldDominationPhaseTwo() {
-        val minion = MinionDouble()
+        val minion = mock(Minion::class.java)
         superVillain.worldDominationPhaseTwo(minion = minion)
 
-        minion.verify()
+        verify(minion, times(1)).fightEnemies()
+        verify(minion, times(1)).doHardStuff()
+    }
+
+    @Test
+    fun testSecretsAreCyphered() {
+        val cypher = mock(Cypher::class.java)
+        whenever(cypher.encrypt(any(), any())).thenAnswer {
+            val message = it.arguments[0] as String
+            "O2O" + message + "O2O"
+        }
+
+        val sideKick = mock(SideKick::class.java)
+
+        superVillain.sideKick = sideKick
+        superVillain.tellSecrets(cypher, TestData.MESSAGE)
+
+
+        verify(sideKick).listenSecrets(TestData.CYPHER_MESSAGE)
+
     }
 
     /**
      * Fake SideKick class.
      */
-    class SideKickDouble : SideKick(gadget = GadgetDummy()) {
+    /*class SideKickDouble : SideKick(gadget = GadgetDummy()) {
         var agreeResponse: Boolean = true
         var weakTargetList: Array<String> = arrayOf()
         var firstWeakTarget: String? = null
@@ -123,16 +141,16 @@ class SuperVillainTest {
         override fun buildHeadQuarters(city: String) {
             firstWeakTarget = city
         }
-    }
+    }*/
 
     /**
      * Fake gadget class.
      */
-    class GadgetDummy : Gadget {
+    /*class GadgetDummy : Gadget {
         override fun use() {
 
         }
-    }
+    }*/
 
     /**
      * Fake weapon class.
@@ -149,7 +167,7 @@ class SuperVillainTest {
     /**
      * Fake Minion class.
      */
-    class MinionDouble : Minion {
+    /*class MinionDouble : Minion {
 
         var hardStuffDone: Boolean = false
         var fightEnemiesDone: Boolean = false
@@ -166,7 +184,7 @@ class SuperVillainTest {
             assertTrue(hardStuffDone)
             assertTrue(fightEnemiesDone)
         }
-    }
+    }*/
 
     /**
      * Fake Cypher class.
