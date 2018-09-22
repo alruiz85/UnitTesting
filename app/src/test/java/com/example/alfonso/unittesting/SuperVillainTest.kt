@@ -1,5 +1,7 @@
 package com.example.alfonso.unittesting
 
+import com.nhaarman.mockitokotlin2.atLeastOnce
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.After
 import org.junit.Assert.*
@@ -70,13 +72,14 @@ class SuperVillainTest {
 
     @Test
     fun testAttackFiresFirstWeapon() {
-        val weapon1 = WeaponDouble()
-        val weapon2 = WeaponDouble()
+        val weapon1 = mock(MegaWeapon::class.java)
+        val weapon2 = mock(MegaWeapon::class.java)
 
         val listWeapon = arrayOf<MegaWeapon>(weapon1, weapon2)
         superVillain.attackFiresWeapons(listWeapons = listWeapon)
 
-        assertTrue(weapon1.wasFired)
+        verify(weapon1, atLeastOnce()).fire()
+        verify(weapon2, never()).fire()
     }
 
     @Test
@@ -131,14 +134,14 @@ class SuperVillainTest {
     /**
      * Fake weapon class.
      */
-    class WeaponDouble : MegaWeapon {
+    /*class WeaponDouble : MegaWeapon {
 
         var wasFired: Boolean = false
 
         override fun fire() {
             wasFired = true
         }
-    }
+    }*/
 
     /**
      * Fake Minion class.
