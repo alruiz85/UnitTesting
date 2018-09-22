@@ -1,9 +1,11 @@
 package com.example.alfonso.unittesting
 
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito.mock
 
 class SuperVillainTest {
 
@@ -37,11 +39,11 @@ class SuperVillainTest {
     //Test de comportamiento
     @Test
     fun testAttackFiresWeapon() {
-        val fakeWeapon = WeaponDouble()
+        val fakeWeapon = mock(MegaWeapon::class.java)//WeaponDouble()
 
         superVillain.fire(weapon = fakeWeapon)
 
-        assertTrue(fakeWeapon.wasFired)
+        verify(fakeWeapon).fire()
     }
 
     @Test
