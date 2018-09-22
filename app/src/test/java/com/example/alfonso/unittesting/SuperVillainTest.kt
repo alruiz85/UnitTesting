@@ -46,7 +46,7 @@ class SuperVillainTest {
 
     @Test
     fun testSuperVillainKillsSideKickNotAccept() {
-        val sideKickStub = SideKickStub()
+        val sideKickStub = SideKickDouble()
         sideKickStub.agreeResponse = false
         superVillain.sideKick = sideKickStub
 
@@ -57,7 +57,7 @@ class SuperVillainTest {
 
     @Test
     fun testSuperVillainSideKickAccept() {
-        val sideKickStub = SideKickStub()
+        val sideKickStub = SideKickDouble()
         sideKickStub.agreeResponse = true
         superVillain.sideKick = sideKickStub
 
@@ -77,14 +77,35 @@ class SuperVillainTest {
         assertTrue(weapon1.wasFired)
     }
 
+    @Test
+    fun testStartDominationWorldPlans() {
+        val sideKick = SideKickDouble()
+        sideKick.weakTargetList = arrayOf("Madrid", "Albacete", "Guadalajara")
+        superVillain.sideKick = sideKick
+
+        superVillain.startDominationWorldPlans()
+
+        assertEquals("Madrid", sideKick.firstWeakTarget)
+    }
+
     /**
      * Fake SideKick class.
      */
-    class SideKickStub : SideKick(gadget = GadgetDummy()) {
+    class SideKickDouble : SideKick(gadget = GadgetDummy()) {
         var agreeResponse: Boolean = true
+        var weakTargetList: Array<String> = arrayOf()
+        var firstWeakTarget: String? = null
 
         override fun agree(): Boolean {
             return agreeResponse
+        }
+
+        override fun askForWeakTargets(): Array<String> {
+            return weakTargetList
+        }
+
+        override fun buildHeadQuarters(city: String) {
+            firstWeakTarget = city
         }
     }
 

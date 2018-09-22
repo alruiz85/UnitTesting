@@ -26,4 +26,12 @@ data class SuperVillain(var firstName: String,
         listWeapons[0].fire()
     }
 
+    fun startDominationWorldPlans() {
+        sideKick?.apply {
+            val places = askForWeakTargets()
+            buildHeadQuarters(city = places[0])
+        }
+    }
+
+
 }

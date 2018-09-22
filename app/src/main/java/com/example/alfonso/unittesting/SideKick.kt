@@ -6,4 +6,12 @@ open class SideKick(var gadget: Gadget) {
         return true
     }
 
+    open fun askForWeakTargets(): Array<String> {
+        return arrayOf()
+    }
+
+    open fun buildHeadQuarters(city: String) {
+        //Empty
+    }
+
 }
