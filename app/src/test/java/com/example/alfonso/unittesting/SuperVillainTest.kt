@@ -3,6 +3,7 @@ package com.example.alfonso.unittesting
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -50,8 +51,9 @@ class SuperVillainTest {
 
     @Test
     fun testSuperVillainKillsSideKickNotAccept() {
-        val sideKickStub = SideKickDouble()
-        sideKickStub.agreeResponse = false
+        val sideKickStub = mock(SideKick::class.java)
+        whenever(sideKickStub.agree()).thenReturn(false)
+
         superVillain.sideKick = sideKickStub
 
         superVillain.tellPlans()
@@ -61,8 +63,9 @@ class SuperVillainTest {
 
     @Test
     fun testSuperVillainSideKickAccept() {
-        val sideKickStub = SideKickDouble()
-        sideKickStub.agreeResponse = true
+        val sideKickStub = mock(SideKick::class.java)
+        whenever(sideKickStub.agree()).thenReturn(true)
+
         superVillain.sideKick = sideKickStub
 
         superVillain.tellPlans()
